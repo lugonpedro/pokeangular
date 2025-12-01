@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { Pokemon, PokemonService } from '../../services/pokemon.service';
-import { CommonModule } from '@angular/common';
 import { catchError, of, tap } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

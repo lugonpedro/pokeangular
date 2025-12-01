@@ -9,10 +9,11 @@
 
   <ul class="pokemon-list">
     @for(pokemon of pokemons; track pokemon.id) {
-    <li class="pokemon-item">
-      <img [src]="pokemon.image" [alt]="pokemon.name" width="64" height="64" />
-      <span class="name">{{ pokemon.name }}</span>
-      <small class="id">#{{ pokemon.id }}</small>
+    <li>
+      <a [routerLink]="'pokemon/'+pokemon.id" class="pokemon-item">
+        <img [src]="pokemon.image" [alt]="pokemon.name" width="96" height="96" />
+        <span class="name">{{ pokemon.name }}</span>
+      </a>
     </li>
     }
   </ul>
