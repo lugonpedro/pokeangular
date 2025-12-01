@@ -1,0 +1,19 @@
+<div class="home">
+  @if(loading) {
+  <div>Carregando</div>
+  }
+
+  @if(error) {
+  <div>{{ error }}</div>
+  }
+
+  <ul class="pokemon-list">
+    @for(pokemon of pokemons; track pokemon.id) {
+    <li class="pokemon-item">
+      <img [src]="pokemon.image" [alt]="pokemon.name" width="64" height="64" />
+      <span class="name">{{ pokemon.name }}</span>
+      <small class="id">#{{ pokemon.id }}</small>
+    </li>
+    }
+  </ul>
+</div>

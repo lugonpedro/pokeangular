@@ -1,0 +1,32 @@
+.pokemon-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 12px;
+}
+
+.pokemon-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.name {
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.id {
+  color: #666;
+  margin-left: auto;
+}
+
+@media (min-width: 992px) {
+  .pokemon-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
