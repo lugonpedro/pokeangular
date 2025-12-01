@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Pokemon, PokemonService } from '../../services/pokemon.service';
 import { CommonModule } from '@angular/common';
 import { catchError, of, tap } from 'rxjs';
