@@ -33,9 +33,9 @@ export class PokemonService {
   private readonly _httpClient = inject(HttpClient);
   private readonly api = 'https://pokeapi.co/api/v2/pokemon';
 
-  getPokemons(limit = 20, offset = 0): Observable<GetPokemonsRequest> {
+  getPokemons(offset = 0): Observable<GetPokemonsRequest> {
     return this._httpClient
-      .get<GetPokemonsResp>(`${this.api}?limit=${limit}&offset=${offset}`)
+      .get<GetPokemonsResp>(`${this.api}?limit=20&offset=${offset}`)
       .pipe(
         map((res) => ({
           count: res.count,

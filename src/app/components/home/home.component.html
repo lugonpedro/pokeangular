@@ -17,4 +17,10 @@
     </li>
     }
   </ul>
+
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="!request.previous">Anterior</button>
+    <span> Page {{ currentPage }} / {{ lastPage }} </span>
+    <button (click)="nextPage()" [disabled]="!request.next">Próxima</button>
+  </div>
 </div>
