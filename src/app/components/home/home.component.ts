@@ -1,5 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { Pokemon, PokemonService } from '../../services/pokemon.service';
+import {
+  GetPokemonsRequest,
+  PokemonService,
+} from '../../services/pokemon.service';
 import { catchError, of, tap } from 'rxjs';
 import { RouterLink } from '@angular/router';
 
@@ -10,33 +13,44 @@ import { RouterLink } from '@angular/router';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  readonly _pokemonService = inject(PokemonService)
-  pokemons: Pokemon[] = [];
+  readonly _pokemonService = inject(PokemonService);
   loading = false;
   error = '';
   limit = 20;
   offset = 0;
 
+  request: GetPokemonsRequest = {
+    count: 0,
+    next: null,
+    previous: null,
+    pokemons: [],
+  };
+
   ngOnInit(): void {
-    this.loadPokemons()
+    this.loadPokemons();
   }
 
   loadPokemons(): void {
-    this.loading = (true);
-    this.error = ('');
+    this.loading = true;
+    this.error = '';
     this._pokemonService
       .getPokemons(this.limit, this.offset)
       .pipe(
         tap(() => {}),
         catchError(() => {
-          this.error = ('Erro ao carregar pokemons');
-          this.loading = (false);
-          return of([] as Pokemon[]);
+          this.error = 'Erro ao carregar pokemons';
+          this.loading = false;
+          return of({
+            count: 0,
+            next: null,
+            previous: null,
+            pokemons: [],
+          } as GetPokemonsRequest);
         })
       )
       .subscribe((data) => {
-        this.pokemons = (data);
-        this.loading = (false);
+        this.request = data;
+        this.loading = false;
       });
   }
 }

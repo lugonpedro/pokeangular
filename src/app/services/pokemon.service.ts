@@ -12,7 +12,14 @@ interface GetPokemonsResp {
   }[];
 }
 
-export interface Pokemon {
+export interface GetPokemonsRequest {
+  count: number;
+  next: null | string;
+  previous: null | string;
+  pokemons: Pokemon[];
+}
+
+interface Pokemon {
   id: number;
   name: string;
   url: string;
@@ -26,18 +33,21 @@ export class PokemonService {
   private readonly _httpClient = inject(HttpClient);
   private readonly api = 'https://pokeapi.co/api/v2/pokemon';
 
-  getPokemons(limit = 20, offset = 0): Observable<Pokemon[]> {
+  getPokemons(limit = 20, offset = 0): Observable<GetPokemonsRequest> {
     return this._httpClient
       .get<GetPokemonsResp>(`${this.api}?limit=${limit}&offset=${offset}`)
       .pipe(
-        map((res) =>
-          res.results.map((pokemon) => {
+        map((res) => ({
+          count: res.count,
+          next: res.next,
+          previous: res.previous,
+          pokemons: res.results.map((pokemon) => {
             const urlArr = pokemon.url.split('/').filter((str) => str !== '');
             const id = urlArr[urlArr.length - 1];
             const image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
             return { id: +id, name: pokemon.name, url: pokemon.url, image };
-          })
-        )
+          }),
+        }))
       );
   }
 }
